@@ -8,7 +8,6 @@ void main(){
     double coefs1[20], coefs2[20], coefs3[20], coefsr[40];
     short p1 = 0, p2 = 0, p3 = 0;
     int operation = 0, grau = 0, i = 0;
-    int f, k;
     setlocale(LC_ALL,"");
 
     do {
@@ -81,12 +80,9 @@ void main(){
 	        break;
 		//OPÇÃO PRIMOS DE MERSENE
 		case 4:
-
-			if(f == NULL)
+			if(coefs1[4] == 0)
                 printf("NULL!\n\n\n\n");
 
-            if(f == k)
-                printf("NULL ZAÇO\n\n\n");
 
 			printf("ENCONTRAR TODOS OS PRIMOS DE MERSENE NO INTERVALO [1, 30].\n\n");
 			printf("\n");
@@ -167,5 +163,55 @@ int menu(void) {
   scanf("%d", &opcao);
 
   return(opcao);
+}
+
+void pMSoma(int *p1, int *p2, int *p3, int *p4){
+    int pr[40];
+    int quant = 0, pc1=0, pc2=0, pc3=0, pc4=0, i = 0;
+    printf("Quantos polinômios você deseja somar? (Máximo 4 & Mínimo 2): \n");
+    scanf("%d", &quant);
+
+    if(quant > 1 && quant <= 4){
+        switch(quant)  {
+        //INTRODUZIR 1º POLINÔMIO
+            case 2:
+                printf("Quais polinômios você deseja somar?\n");
+                printf("1. Polinômio 1\n");
+                printf("2. Polinômio 2\n");
+                printf("3. Polinômio 3\n");
+                printf("4. Polinômio resultante\n");
+                scanf("%d %d", &pc1, &pc2);
+
+                if((pc1 == 1 || pc2 == 1) && (pc1 == 1 || pc2 == 1))
+                    for(; i < 20; i++)
+                        p4[i] = p1[i] + p2[i];
+                if((pc1 == 1 || pc2 == 1) && (pc1 == 2 || pc2 == 2))
+                        p4[i] = p1[i] + p2[i];
+                if((pc1 == 1 || pc2 == 1) && (pc1 == 3 || pc2 == 3))
+                        p4[i] = p1[i] + p2[i];
+                if((pc1 == 1 || pc2 == 1) && (pc1 == 4 || pc2 == 4))
+                        p4[i] = p1[i] + p2[i];
+                if((pc1 == 2 || pc2 == 2) && (pc1 == 2 || pc2 == 2))
+                        p4[i] = p1[i] + p2[i];
+                if((pc1 == 2 || pc2 == 2) && (pc1 == 3 || pc2 == 3))
+                        p4[i] = p1[i] + p2[i];
+                if((pc1 == 2 || pc2 == 2) && (pc1 == 4 || pc2 == 4))
+                        p4[i] = p1[i] + p2[i];
+                if((pc1 == 3 || pc2 == 3) && (pc1 == 3 || pc2 == 3))
+                        p4[i] = p1[i] + p2[i];
+                if((pc1 == 3 || pc2 == 3) && (pc1 == 4 || pc2 == 4))
+                        p4[i] = p1[i] + p2[i];
+                if((pc1 == 4 || pc2 == 4) && (pc1 == 4 || pc2 == 4))
+                        p4[i] = p1[i] + p2[i];
+
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+
+        }
+    }
+
 }
 
