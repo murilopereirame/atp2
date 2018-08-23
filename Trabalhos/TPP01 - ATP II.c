@@ -3,112 +3,108 @@
 #include <locale.h>
 
 short continua(void);
+void pMChange(float *p, float *pr, int lenght);
+short checkNull(float *p1, float *p2, float *p3);
+void pMSoma(float *p1, float *p2, float *p3, float *p4);
+void pMSub(float *p1, float *p2, float *p3, float *p4);
+void pMMulti(float *p1, float *p2, float *p3, float *p4, float conK);
+void pMInsert(float *p1, float *p2, float *p3);
+void pMSolve(float *p1, float *p2, float *p3, float *p4);
+void pMPrint(float *p1, float *p2, float *p3, float *p4);
+void pMDerive(float *p1, float *p2, float *p3, float *p4);
+void pMIntegrate(float *p1, float *p2, float *p3, float *p4);
 
 void main(){
-    double coefs1[20], coefs2[20], coefs3[20], coefsr[40];
-    short p1 = 0, p2 = 0, p3 = 0;
-    int operation = 0, grau = 0, i = 0;
-    setlocale(LC_ALL,"");
-
+    float coefs1[20] = {0}, coefs2[20] = {0}, coefs3[20] = {0}, coefsr[40] = {0};    
+    int operation = 0, grau = 0, i = 0, opt = 0;
+    float k = 0, x=0;
+    setlocale(LC_ALL,"");	
     do {
 		operation = menu();
 		system("cls");
 		system("Pause");
 
 	    switch(operation)  {
-	    //INTRODUZIR 1º POLINÔMIO
+	    //INTRODUZIR POLINÔMIOS
 		case 1:
 			printf("Introduzir o primeiro polinômio.\n\n");
-			printf("Qual o grau do polinômio?\n");
-			scanf("%d", &grau);
-			if(grau > 0 && grau < 21){
-                for(; i < grau; i++){
-                    printf("\nIntroduza o coeficiente A%d :", i);
-                    scanf("%d", &coefs1[i]);
-                }
-                p1 = 1;
-                grau = 0;
-                i = 0;
-			}
-			else
-                printf("O grau n do polinômio deve se 0 < n < 21");
-
+			pMInsert(coefs1, coefs2, coefs3);
 	        printf("\n");
 	        system("Pause");
 	        break;
-	    //INTRODUZIR 2º POLINÔMIO
-		case 2:
-			printf("Introduzir o segundo polinômio.\n\n");
-			printf("Qual o grau do polinômio?\n");
-			scanf("%d", &grau);
-
-			if(grau > 0 && grau < 21){
-                for(; i < grau; i++){
-                    printf("\nIntroduza o coeficiente A%d :", i);
-                    scanf("%d", &coefs2[i]);
-                }
-                p2 = 1;
-                grau = 0;
-                i = 0;
-			}
-			else
-                printf("O grau n do polinômio deve se 0 < n < 21");
-
+	    //SOMAR POLINÔMIOS
+		case 2:			                
+			printf("Somar polinômios.\n\n");
+			if(checkNull(coefs1, coefs2, coefs3))
+				pMSoma(coefs1, coefs2, coefs3, coefsr);
 	        printf("\n");
 	        system("Pause");
 	        break;
-	    //INTRODUZIR 3º POLINÔMIO
-		case 3:
-			printf("Introduzir o terceiro polinômio.\n\n");
-			printf("Qual o grau do polinômio?\n");
-			scanf("%d", &grau);
-
-			if(grau > 0 && grau < 21){
-                for(; i < grau; i++){
-                    printf("\nIntroduza o coeficiente A%d :", i);
-                    scanf("%d", &coefs3[i]);
-                }
-                p2 = 1;
-                grau = 0;
-                i = 0;
-            }
-			else
-                printf("O grau n do polinômio deve se 0 < n < 21");
-
+	    //SUBTRAIR POLINÔMIOS
+		case 3:			
+			printf("Subtrair polinômios.\n\n");
+			if(checkNull(coefs1, coefs2, coefs3))
+				pMSub(coefs1, coefs2, coefs3, coefsr);
 	        printf("\n");
 	        system("Pause");
 	        break;
-		//OPÇÃO PRIMOS DE MERSENE
-		case 4:
-			if(coefs1[4] == 0)
-                printf("NULL!\n\n\n\n");
-
-
-			printf("ENCONTRAR TODOS OS PRIMOS DE MERSENE NO INTERVALO [1, 30].\n\n");
+		//MULTIPLICAR POLINÔMIOS
+		case 4:			                
+			printf("Multiplicar polinômio por uma constante K pertencente aos Reais.\n\n");
+			printf("Insira a constante K: ");
+			scanf("%f", &k);
+			if(checkNull(coefs1, coefs2, coefs3))
+				pMMulti(coefs1, coefs2, coefs3, coefsr, k);
 			printf("\n");
-			system("pause");
-			break;
-		//OPÇÃO DE NÚMEROS FELIZES
+			system("pause");			
+			break;		
+		//INTEGRAR POLINÔMIOS
 		case 5:
-			printf("ENCONTRAR TODOS OS NÚMEROS FELIZES NO INTERVALO [4,1000].\n\n");
+			printf("Integrar polinômios.\n\n");
+			if(checkNull(coefs1, coefs2, coefs3))
+				pMIntegrate(coefs1, coefs2, coefs3, coefsr);
 			printf("\n");
 			system("pause");
-			break;
-		//OPÇÃO DE APROXIMAÇÃO FATORIAL
+			break;		
+		//DERIVAR POLINÔMIOS
 		case 6:
-			printf("CALCULAR A APROXIMAÇÃO DO FATORIAL DE N.\n\n");
+			printf("Derivar polinômios.\n\n");
+			if(checkNull(coefs1, coefs2, coefs3)){
+				pMDerive(coefs1, coefs2, coefs3, coefsr);
+			}			
 			printf("\n");
 			system("pause");
 			break;
+		//RESOLVER POLINÔMIOS
         case 7:
-			printf("CALCULAR A APROXIMAÇÃO DO FATORIAL DE N.\n\n");
+			printf("Resolver polinômios.\n\n");						
+			if(checkNull(coefs1, coefs2, coefs3)){
+				pMSolve(coefs1, coefs2, coefs3, coefsr);
+			}						
+			printf("\n");
+			system("pause");
+			break;
+		//IMPRIMIR POLINÔMIOS
+		case 8:
+			printf("Imprimir polinômios.\n\n");									
+			if(checkNull(coefs1, coefs2, coefs3))
+				pMPrint(coefs1, coefs2, coefs3, coefsr);
+			printf("\n");
+			system("pause");
+			break;
+		//DETERMINAR GRAU DE POLINÔMIOS
+		case 9:
+			printf("Determinar grau de polinômios.\n\n");						
+			if(checkNull(coefs1, coefs2, coefs3)){
+				pMDetG(coefs1, coefs2, coefs3, coefsr);
+			}							
 			printf("\n");
 			system("pause");
 			break;
 		//OPÇÃO SAIR
 		case 0:
-			printf("\nDesenvolvido por: Murilo Rocha Pereira & Gustavo Marciel Pinheiro Oliveira\nRA: 181250934 & 181253828\nCurso: Ciência da Computação\nSemestre: 1º\n");
-			return 0;
+			printf("\nDesenvolvido por: Murilo Rocha Pereira\nRA: 181250934\nCurso: Ciência da Computação\nSemestre: 2º\n");
+			return 0;			
 		//OPÇÃO INVALIDA
 		default:
 			printf("Insira uma opção válida =].");
@@ -148,14 +144,16 @@ int menu(void) {
   int opcao;
 
   system("CLS");
-  printf("\n\t=====Trabalho prático de programação - 01=====\n\n");
-  printf("1. Introduzir polinômio 01 \n");
-  printf("2. Introduzir polinômio 02 \n");
-  printf("3. Introduzir polinômio 04 \n");
-  printf("4. Somar polinômios\n");
-  printf("5. Subtrair polinômios\n");
-  printf("6. Multiplicar polinômios\n");
-  printf("7. Dividir polinômios\n");
+  printf("\n\t=====Trabalho prático de programação - 01 || ATP II=====\n\n");
+  printf("1. Introduzir polinômios\n"); //OK
+  printf("2. Somar polinômios\n"); //OK
+  printf("3. Subtrair polinômios\n"); //OK
+  printf("4. Multiplicar K por polinômios\n"); //OK
+  printf("5. Integrar polinômios\n"); //OK
+  printf("6. Derivar polinômios\n"); //OK
+  printf("7. Resolver polinômios\n"); //OK
+  printf("8. Imprimir polinômios\n"); //OK
+  printf("9. Determinar grau de polinômios\n"); //OK
   printf("0. Sair");
 
 
@@ -165,53 +163,841 @@ int menu(void) {
   return(opcao);
 }
 
-void pMSoma(int *p1, int *p2, int *p3, int *p4){
-    int pr[40];
-    int quant = 0, pc1=0, pc2=0, pc3=0, pc4=0, i = 0;
-    printf("Quantos polinômios você deseja somar? (Máximo 4 & Mínimo 2): \n");
-    scanf("%d", &quant);
+//Integrar polinômios
+void pMIntegrate(float *p1, float *p2, float *p3, float *p4){
+	int opt = 0;
+	int i = 19;
+	float pr[40] = {0};
+	char ch;
+	printf("Qual polinômio deseja integrar?\n");
+	printf("1. Polinômio 1 f(x)\n");
+	printf("2. Polinômio 2 g(x)\n");
+	printf("3. Polinômio 3 h(x)\n");
+	printf("4. Polinômio resultante r(x)\n");
+	printf("0. Voltar\n");
+	printf("Opção: ");
+	scanf("%d", &opt);
+	printf("\n");
+	
+	switch(opt){
+		case 1:
+			for(; i >=0; i--){
+				pr[i+1] = p1[i]/(i+1);								
+			}
+			pr[0] = 0.0;
+			printf("O polinômio f(x) integrado fica: ");
+			i = 19;
+			for(; i >= 0; i--){				
+				if(pr[i] != 0)	
+					if(pr[i] > 0)					
+						printf(" + %.2fX^%d", pr[i], i);
+					else
+						printf(" + (%.2fX^%d)", pr[i], i);
+			}
+			printf(" + C");
+			break;
+		case 2:
+			for(; i >=0; i--){
+				pr[i+1] = p2[i]/(i+1);				
+			}
+			pr[0] = 0.0;
+			printf("O polinômio g(x) integrado fica: ");
+			i = 19;
+			for(; i >= 0; i--){				
+				if(pr[i] != 0)	
+					if(pr[i] > 0)					
+						printf(" + %.2fX^%d", pr[i], i);
+					else
+						printf(" + (%.2fX^%d)", pr[i], i);
+			}
+			printf(" + C");
+			break;
+		case 3:
+			for(; i >=0; i--){
+				pr[i+1] = p3[i]/(i+1);				
+			}
+			pr[0] = 0.0;
+			printf("O polinômio h(x) integrado fica: ");
+			i = 19;
+			for(; i >= 0; i--){				
+				if(pr[i] != 0)	
+					if(pr[i] > 0)					
+						printf(" + %.2fX^%d", pr[i], i);
+					else
+						printf(" + (%.2fX^%d)", pr[i], i);
+			}
+			printf(" + C");
+			break;
+		case 4:
+			if(p4[39] != 0)
+				printf("\nNão é possível integrar este polinômio pois ele extrapola o limite pré estabelecido!");
+			else{
+				i = 39;
+				for(; i >=0; i--){
+					pr[i+1] = p4[i]/(i+1);				
+				}
+				pr[0] = 0.0;
+				printf("O polinômio r(x) integrado fica: ");
+				i = 39;
+				for(; i >= 0; i--){				
+					if(pr[i] != 0)	
+						if(pr[i] > 0)					
+							printf(" + %.2fX^%d", pr[i], i);
+						else
+							printf(" + (%.2fX^%d)", pr[i], i);
+				}
+				printf(" + C");				
+			}			
+			break;
+		case 0:
+			return 0;
+	}
+	printf("\n");
+	system("pause");
+	do{					
+		system("cls");
+		printf("\n\nDeseja integrar mais algum polinômio? [S,N] : ");
+		ch = getchar();
+		ch = toupper(ch);
+	}
+	while( (ch != 'S') && (ch != 'N') );	
+	
+	if(ch == 'S')
+		pMIntegrate(p1, p2, p3, p4);
+}
 
-    if(quant > 1 && quant <= 4){
-        switch(quant)  {
-        //INTRODUZIR 1º POLINÔMIO
-            case 2:
-                printf("Quais polinômios você deseja somar?\n");
-                printf("1. Polinômio 1\n");
-                printf("2. Polinômio 2\n");
-                printf("3. Polinômio 3\n");
-                printf("4. Polinômio resultante\n");
-                scanf("%d %d", &pc1, &pc2);
+//Derivar polinômios
+void pMDerive(float *p1, float *p2, float *p3, float *p4){
+	int opt = 0, yn = 0;
+	int i = 0;
+	float pr[40] = {0}, pr1[20] = {0};
+	char ch;
+	printf("Qual polinômio deseja derivar?\n");
+	printf("1. Polinômio 1 f(x)\n");
+	printf("2. Polinômio 2 g(x)\n");
+	printf("3. Polinômio 3 h(x)\n");
+	printf("4. Polinômio resultante r(x)\n");
+	printf("0. Voltar\n");
+	printf("Opção: ");
+	scanf("%d", &opt);
+	printf("\n");
+	
+	switch(opt){
+		case 1:
+			for(; i < 19; i++){
+				pr1[i] = p1[i + 1] * (i + 1);
+			}
+			pr1[19] == 0.0;
+			printf("O polinômio f(x) derivado fica: ");
+			for(; i >= 0; i--){				
+				if(pr1[i] != 0)	
+					if(pr1[i] > 0)					
+						printf(" + %.2fX^%d", pr1[i], i);
+					else
+						printf(" + (%.2fX^%d)", pr1[i], i);
+			}
+			printf("\nDeseja armazenar o novo polinômio? (1.Sim / 2.Não)\n");
+			printf("Opção: ");
+			scanf("%d", &yn);
+			if(yn == 1)
+				pMChange(p1, pr1, 20);
+			break;
+		case 2:
+			for(; i < 19; i++){
+				pr1[i] = p2[i + 1] * i + 1;
+			}
+			pr1[19] == 0.0;
+			printf("O polinômio g(x) derivado fica: ");
+			for(; i >= 0; i--){				
+				if(pr1[i] != 0)	
+					if(pr1[i] > 0)					
+						printf(" + %.2fX^%d", pr1[i], i);
+					else
+						printf(" + (%.2fX^%d)", pr1[i], i);
+			}
+			printf("\nDeseja armazenar o novo polinômio? (1.Sim / 2.Não)\n");
+			printf("Opção: ");
+			scanf("%d", &yn);
+			if(yn == 1)
+				pMChange(p2, pr1, 20);
+			break;
+		case 3:
+			for(; i < 19; i++){
+				pr1[i] = p3[i + 1] * i + 1;
+			}
+			pr1[19] == 0.0;
+			printf("O polinômio h(x) derivado fica: ");
+			for(; i >= 0; i--){				
+				if(pr1[i] != 0)	
+					if(pr1[i] > 0)					
+						printf(" + %.2fX^%d", pr1[i], i);
+					else
+						printf(" + (%.2fX^%d)", pr1[i], i);
+			}
+			printf("\nDeseja armazenar o novo polinômio? (1.Sim / 2.Não)\n");
+			printf("Opção: ");
+			scanf("%d", &yn);
+			if(yn == 1)
+				pMChange(p3, pr1, 20);
+			break;
+		case 4:
+			for(; i < 38; i++){
+				pr1[i] = p4[i + 1] * i + 1;
+			}
+			pr1[39] == 0.0;
+			printf("O polinômio r(x) derivado fica: ");
+			for(; i >= 0; i--){				
+				if(pr1[i] != 0)	
+					if(pr1[i] > 0)					
+						printf(" + %.2fX^%d", pr1[i], i);
+					else
+						printf(" + (%.2fX^%d)", pr1[i], i);
+			}
+			printf("\nDeseja armazenar o novo polinômio? (1.Sim / 2.Não)\n");
+			printf("Opção: ");
+			scanf("%d", &yn);
+			if(yn == 1)
+				pMChange(p4, pr, 40);
+			break;
+		case 0:
+			return 0;
+	}
+	printf("\n");
+	system("pause");
+	do{					
+		system("cls");
+		printf("\n\nDeseja derivar mais algum polinômio? [S,N] : ");
+		ch = getchar();
+		ch = toupper(ch);
+	}
+	while( (ch != 'S') && (ch != 'N') );	
+	
+	if(ch == 'S')
+		pMDerive(p1, p2, p3, p4);
+}
 
-                if((pc1 == 1 || pc2 == 1) && (pc1 == 1 || pc2 == 1))
-                    for(; i < 20; i++)
-                        p4[i] = p1[i] + p2[i];
-                if((pc1 == 1 || pc2 == 1) && (pc1 == 2 || pc2 == 2))
-                        p4[i] = p1[i] + p2[i];
-                if((pc1 == 1 || pc2 == 1) && (pc1 == 3 || pc2 == 3))
-                        p4[i] = p1[i] + p2[i];
-                if((pc1 == 1 || pc2 == 1) && (pc1 == 4 || pc2 == 4))
-                        p4[i] = p1[i] + p2[i];
-                if((pc1 == 2 || pc2 == 2) && (pc1 == 2 || pc2 == 2))
-                        p4[i] = p1[i] + p2[i];
-                if((pc1 == 2 || pc2 == 2) && (pc1 == 3 || pc2 == 3))
-                        p4[i] = p1[i] + p2[i];
-                if((pc1 == 2 || pc2 == 2) && (pc1 == 4 || pc2 == 4))
-                        p4[i] = p1[i] + p2[i];
-                if((pc1 == 3 || pc2 == 3) && (pc1 == 3 || pc2 == 3))
-                        p4[i] = p1[i] + p2[i];
-                if((pc1 == 3 || pc2 == 3) && (pc1 == 4 || pc2 == 4))
-                        p4[i] = p1[i] + p2[i];
-                if((pc1 == 4 || pc2 == 4) && (pc1 == 4 || pc2 == 4))
-                        p4[i] = p1[i] + p2[i];
+//Imprimir polinômio
+void pMPrint(float *p1, float *p2, float *p3, float *p4){
+	int opt = 0;
+	int i = 0;
+	char ch;
+	printf("Qual polinômio deseja imprimir?\n");
+	printf("1. Polinômio 1 f(x)\n");
+	printf("2. Polinômio 2 g(x)\n");
+	printf("3. Polinômio 3 h(x)\n");
+	printf("4. Polinômio resultante r(x)\n");
+	printf("0. Voltar\n");
+	printf("Opção: ");
+	scanf("%d", &opt);
+	printf("\n");
+	
+	switch (opt){
+		case 1:
+			i = 19;
+			printf("Polinômio 1 f(x): ");
+			for(; i >= 0; i--){				
+				if(p1[i] != 0)	
+					if(p1[i] > 0)					
+						printf(" + %.2fX^%d", p1[i], i);
+					else
+						printf(" + (%.2fX^%d)", p1[i], i);
+			}
+			break;
+		case 2:
+			i = 19;
+			printf("Polinômio 2 g(x): ");
+			for(; i >= 0; i--){				
+				if(p2[i] != 0)	
+					if(p2[i] > 0)					
+						printf(" + %.2fX^%d", p2[i], i);
+					else
+						printf(" + (%.2fX^%d)", p2[i], i);
+			}
+			break;
+		case 3:
+			i = 19;
+			printf("Polinômio 3 h(x): ");
+			for(; i >= 0; i--){				
+				if(p3[i] != 0)	
+					if(p3[i] > 0)					
+						printf(" + %.2fX^%d", p3[i], i);
+					else
+						printf(" + (%.2fX^%d)", p3[i], i);
+			}
+			break;
+		case 4:
+			i = 39;
+			printf("Polinômio resultante r(x): ");
+			for(; i >= 0; i--){				
+				if(p4[i] != 0)	
+					if(p4[i] > 0)					
+						printf(" + %.2fX^%d", p4[i], i);
+					else
+						printf(" + (%.2fX^%d)", p4[i], i);
+			}
+			break;
+		case 0:
+			return 0;
+	}
+	
+	printf("\n");
+	system("pause");
+	do{					
+		system("cls");
+		printf("\n\nDeseja imprimir mais algum polinômio? [S,N] : ");
+		ch = getchar();
+		ch = toupper(ch);
+	}
+	while( (ch != 'S') && (ch != 'N') );	
+	
+	if(ch == 'S')
+		pMPrint(p1, p2, p3, p4);	
+}
 
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
+//Determinar grau do polinômio
+void pMDetG(float *p1, float *p2, float *p3, float *p4){
+	int i = 0, grau = 0, opt = 0;
+	int r = 0;
+	short ok = 0;
+	char ch;
+	printf("Qual polinômio deseja saber o grau?\n");
+	printf("1. Polinômio 1 f(x)\n");
+	printf("2. Polinômio 2 g(x)\n");
+	printf("3. Polinômio 3 h(x)\n");
+	printf("4. Polinômio resultante r(x)\n");
+	printf("0. Voltar\n");
+	printf("Opção: ");
+	scanf("%d", &opt);	
+	switch(opt)  {	    
+		case 1:
+			for(; i < 20; i++)
+			if(p1[i] != 0)
+				grau = i;			
+			break;
+		case 2:
+			for(; i < 20; i++)
+			if(p2[i] != 0)
+				grau = i;			
+			break;
+		case 3:
+			for(; i < 20; i++)
+			if(p3[i] != 0)
+				grau = i;			
+			break;
+		case 4:			
+			while(r < 40){
+				if(p4[r] != 0){
+					ok =1;
+					break;	
+				}			
+				r++;
+			}				
+			if(ok)
+				for(; i < 40; i++)
+					if(p4[i] != 0)
+						grau = i;			
+			else
+				printf("O polinômio resultante está nulo!\n");
+			break;
+		case 0:
+			return 0;
+			break;
+	}			
+	printf("O grau do %dº polinômio é: %d\n", opt, grau);
+	
+	system("pause");
+	do{					
+		system("cls");
+		printf("\n\nDeseja determinar o grau de mais algum polinômio? [S,N] : ");
+		ch = getchar();
+		ch = toupper(ch);
+	}
+	while( (ch != 'S') && (ch != 'N') );	
+	
+	if(ch == 'S')
+		pMDetG(p1, p2, p3, p4);
+}
 
-        }
-    }
+//Resolver polinômio para X arbitrario
+void pMSolve(float *p1, float *p2, float *p3, float *p4){
+	int i = 0, opt = 0;
+	float resultado = 0, x = 0;	
+	char ch;
+	printf("Insira X pertencente aos Reais:");
+	scanf("%f", &x);
+	printf("\n\n");
+	printf("Qual polinômio deseja solucionar?\n");
+	printf("1. Polinômio 1 f(x)\n");
+	printf("2. Polinômio 2 g(x)\n");
+	printf("3. Polinômio 3 h(x)\n");
+	printf("4. Polinômio resultante r(x)\n");
+	printf("0. Voltar\n")
+	printf("Opção: ");
+	scanf("%d", &opt);
+	printf("\n");
+	
+	switch (opt){
+		case 1:
+			printf("O resultado do polinômio ");	
+			for(; i < 20; i++){
+				resultado += (p1[i] * x);
+				if(p1[i] != 0)
+				printf("%.2f*(%.2f)^%d + ", p1[i], x, i);
+			}
+			printf(" é: %.2f", resultado);
+			break;	
+		case 2:
+			printf("O resultado do polinômio ");	
+			for(; i < 20; i++){
+				resultado += (p2[i] * x);
+				if(p2[i] != 0)
+					printf("%.2f*(%.2f)^%d + ", p2[i], x, i);
+			}
+			printf(" é: %.2f", resultado);
+			break	
+		case 3:
+			printf("O resultado do polinômio ");	
+			for(; i < 20; i++){
+				resultado += (p3[i] * x);
+				if(p3[i] != 0)
+					printf("%.2f*(%.2f)^%d + ", p3[i], x, i);
+			}	
+			printf(" é: %.2f", resultado);
+			break;		
+		case 4:
+			int r = 0;
+			short ok = 0;
+			while(r < 40){
+				if(p4[r] != 0){
+					ok =1;
+					break;	
+				}			
+				r++;
+			}				
+			if(ok){
+				printf("O resultado do polinômio ");	
+				for(; i < 40; i++){
+					resultado += (p4[i] * x);
+					if(p4[i] != 0)
+						printf("%.2f*(%.2f)^%d + ", p4[i], x, i);
+				}
+				printf(" é: %.2f", resultado);
+			}					
+			else
+				printf("O polinômio resultante está nulo!");
+			break;	
+		case 0:
+			return 0;
+	}	
+	
+	printf("\n");
+	system("pause");
+	do{					
+		system("cls");
+		printf("\n\nDeseja solucionar mais algum polinômio? [S,N] : ");
+		ch = getchar();
+		ch = toupper(ch);
+	}
+	while( (ch != 'S') && (ch != 'N') );	
+	
+	if(ch == 'S')
+		pMSolve(p1, p2, p3, p4);
+}
+
+//Forma recursiva de inserir polinômios
+void pMInsert(float *p1, float *p2, float *p3){
+	int option = -1, i = 0, grau = 0;
+	char ch;
+	printf("Qual polinômio deseja inserir?\n");
+	printf("1. Polinômio 1 (f)\n");
+	printf("2. Polinômio 2 (g)\n");
+	printf("3. Polinômio 3 (h)\n");
+	printf("0. Voltar\n");
+	printf("Opção: ");
+	scanf("%d", &option);
+	
+	switch(option)  {
+		case 1:
+			printf("Qual o grau do polinômio?\n");
+			scanf("%d", &grau);
+			if(grau > 0 && grau < 21){
+	            for(; i <= grau; i++){
+	                printf("\nIntroduza o coeficiente A%d :", i);
+	         	    scanf("%f", &p1[i]);
+	            }            
+	            grau = 0;
+	            i = 0;
+			}
+			else{
+				printf("O grau n do polinômio deve se 0 < n < 21");			
+			}            	
+			break;
+		case 2:
+			printf("Qual o grau do polinômio?\n");
+			scanf("%d", &grau);
+	
+			if(grau > 0 && grau < 21){
+	            for(; i <= grau; i++){
+	                printf("\nIntroduza o coeficiente A%d :", i);
+	                scanf("%f", &p2[i]);                
+	            }                
+	            grau = 0;
+	            i = 0;
+			}
+			else{
+				pMInsert(p1, p2, p3);
+				printf("O grau n do polinômio deve se 0 < n < 21");
+			}            	
+			break;
+		case 3:
+			printf("Qual o grau do polinômio?\n");
+			scanf("%d", &grau);
+	
+			if(grau > 0 && grau < 21){
+	            for(; i <= grau; i++){
+	                printf("\nIntroduza o coeficiente A%d :", i);
+	                scanf("%f", &p3[i]);                
+	            }                
+	            grau = 0;
+	            i = 0;
+			}
+			else{
+				pMInsert(p1, p2, p3);
+				printf("O grau n do polinômio deve se 0 < n < 21");
+			}            
+			break;
+		case 0:		
+			return 0;
+	}
+	printf("\n");
+	system("pause");
+	do{					
+		system("cls");
+		printf("\n\nPolinômio introduzido com sucesso! Deseja introduzir mais algum polinômio? [S,N] : ");
+		ch = getchar();
+		ch = toupper(ch);
+	}
+	while( (ch != 'S') && (ch != 'N') );	
+	
+	if(ch == 'S')
+		pMInsert(p1, p2, p3);
+}
+
+//Forma recursiva de soma
+void pMSoma(float *p1, float *p2, float *p3, float *p4){
+    static float pr[40]= {0};
+    char ch;
+    int quant = 0, pc1=0, i = 39, j = 0;
+	
+	printf("Qual polinômio você deseja somar?\n");
+    printf("1. Polinômio 1 f(x)\n");
+	printf("2. Polinômio 2 g(x)\n");
+    printf("3. Polinômio 3 h(x)\n");
+    printf("4. Polinômio resultante r(x)\n");
+    printf("0. Voltar\n");
+    printf("Opção: ");
+    scanf("%d", &pc1);                
+				
+	switch(pc1){
+		case 1:
+			for(; j < 20; j++){
+				pr[j] += p1[j];					
+			}
+			j = 0;
+			break;				
+		case 2:
+			for(; j < 20; j++){
+				pr[j] += p2[j];
+			}
+			j = 0;	
+			break;				
+		case 3:
+			for(; j < 20; j++){
+				pr[j] += p3[j];
+			}
+			j = 0;	
+			break;					
+		case 4:
+			for(; j < 40; j++){
+				pr[j] += p4[j];
+			}
+			j = 0;	
+			break;
+		case 0:
+			return 0;
+	}
+	
+	pMChange(p4, pr, 40);
+	
+	printf("\n");
+	system("pause");
+	do{					
+		system("cls");
+		printf("\n\nDeseja somar mais algum polinômio? [S,N] : ");
+		ch = getchar();
+		ch = toupper(ch);
+	}
+	while( (ch != 'S') && (ch != 'N') );	
+		
+	if(ch == 'S')
+		pMSoma(p1, p2, p3, p4);
+	else{
+		printf("\n");
+		printf("Polinômio resultante: ");
+		for(; i >= 0; i--){
+			if(pr[i] != 0 && i == 39)
+				printf("%.2fX^%d", pr[i], i);
+			else if(pr[i] != 0)						
+				printf(" + %.2fX^%d", pr[i], i);
+		}	
+	}				
 
 }
 
+//Forma recursia multiplicação
+void pMMulti(float *p1, float *p2, float *p3, float *p4, float conK){
+	static float pr[40] = {0};
+	char ch;
+	int j = 0, i = 39, pc1 = 0;
+	
+	printf("Qual polinômio você deseja multiplicar por %.2f?\n", conK);
+    printf("1. Polinômio 1\n");
+	printf("2. Polinômio 2\n");
+    printf("3. Polinômio 3\n");
+    printf("4. Polinômio resultante\n");
+    printf("0. Voltar\n");
+    printf("Opção: ");
+    scanf("%d", &pc1);   
+	
+	switch(pc1)  {
+		case 1:
+			for(; j < 20; j++){
+				pr[j] = p1[j] * conK;					
+			}
+			j = 0;
+			break;					
+		case 2:
+			for(; j < 20; j++){
+				pr[j] = p2[j] * conK;
+			}
+			j = 0;	
+			break;			
+		case 3:
+			for(; j < 20; j++){
+				pr[j] = p3[j] * conK;
+			}
+			j = 0;	
+			break;		
+		case 4:
+			for(; j < 40; j++){
+				pr[j] = p4[j] * conK;
+			}
+			j = 0;	
+			break;
+		case 0:
+			return 0;			
+	}
+	pMChange(p4, pr, 40);
+	
+	printf("\n");
+	printf("Polinômio resultante: ");
+	for(; i >= 0; i--){
+		if(pr[i] != 0 && i == 39)
+			printf("%.2fX^%d", pr[i], i);
+		else if(pr[i] != 0)	
+			if(pr[i] > 0)					
+				printf(" + %.2fX^%d", pr[i], i);
+			else
+				printf(" + (%.2fX^%d)", pr[i], i);
+	}
+	
+	printf("\n");
+	system("pause");
+	do{					
+		system("cls");
+		printf("\n\nDeseja multiplicar mais algum polinômio por %.2f? [S,N] : ", conK);
+		ch = getchar();
+		ch = toupper(ch);
+	}
+	while( (ch != 'S') && (ch != 'N') );	
+	
+	if(ch == 'S')
+		pMMulti(p1, p2, p3, p4, conK);	
+}
+
+//Forma recursiva subtração
+void pMSub(float *p1, float *p2, float *p3, float *p4){
+    static float pr[40]= {0};
+    static short first = 1;
+    char ch;
+    int quant = 0, pc1=0, i = 39, j = 0, k = 0;
+	
+	printf("Qual polinômio você deseja subtrair?\n");
+    printf("1. Polinômio 1\n");
+	printf("2. Polinômio 2\n");
+    printf("3. Polinômio 3\n");
+    printf("4. Polinômio resultante\n");
+    printf("0. Voltar\n");
+    printf("Opção: ");
+    scanf("%d", &pc1);                
+	
+	while(i < 40){
+		if(p1[k] == 0){
+			first =1;
+			break;	
+		}			
+		i++;
+	}
+		
+	if(first){
+		switch(pc1)  {
+			case 1:
+				for(; j < 20; j++){
+					pr[j] += p1[j];					
+				}
+				j = 0;						
+				break;
+			case 2:
+				for(; j < 20; j++){
+					pr[j] += p2[j];
+				}
+				j = 0;
+				break;							
+			case 3:
+				for(; j < 20; j++){
+					pr[j] += p3[j];
+				}
+				j = 0;
+				break;				
+			case 4:
+				for(; j < 40; j++){
+					pr[j] += p4[j];
+				}
+				j = 0;	
+				break;
+			case 0:
+				return 0;
+		}
+		pMChange(p4, pr, 40);
+		first--;		
+		pMSub(p1, p2, p3, p4);
+	}			
+	else{
+		switch(pc1)  {
+			case 1:
+				for(; j < 20; j++){
+					pr[j] -= p1[j];					
+				}
+				j = 0;
+				break;				
+			case 2:
+				for(; j < 20; j++){
+					pr[j] -= p2[j];
+				}
+				j = 0;
+				break;				
+			case 3:
+				for(; j < 20; j++){
+					pr[j] -= p3[j];
+				}
+				j = 0;	
+				break;				
+			case 4:
+				for(; j < 40; j++){
+					pr[j] -= p4[j];
+				}
+				j = 0;	
+				break;
+			case 0:
+				return 0;
+		}
+		pMChange(p4, pr, 40);		
+		
+		printf("\n");
+		system("pause");
+		do{			
+			system("pause");
+			system("cls");
+			printf("\n\nDeseja subtrair mais algum polinômio? [S,N] : ");
+			ch = getchar();
+			ch = toupper(ch);
+		}
+		while( (ch != 'S') && (ch != 'N') );	
+		
+		if(ch == 'S')
+			pMSub(p1, p2, p3, p4);
+		else{
+			printf("\n");
+			printf("Polinômio resultante: ");
+			for(; i >= 0; i--){
+				if(pr[i] != 0 && i == 39)
+					printf("%.2fX^%d", pr[i], i);
+				else if(pr[i] != 0)	
+					if(pr[i] > 0)					
+						printf(" + %.2fX^%d", pr[i], i);
+					else
+						printf(" + (%.2fX^%d)", pr[i], i);
+			}	
+		}	
+	}					
+}
+
+//Transfêrir polinômios
+void pMChange(float *p, float *pr, int lenght){
+	int i = 0;
+	for(; i < lenght; i++){
+		p[i] == pr[i];
+	}
+}
+
+//Checar se polinômio está nulo
+short checkNull(float *p1, float *p2, float *p3){
+	int i = 0;
+	short ok = 0;
+	while(i < 20){
+		if(p1[i] != 0){
+			ok =1;
+			break;	
+		}			
+		i++;
+	}
+	
+	if(!ok){
+		printf("\nPolinômio 1 está nulo!");
+		return 0;	
+	}		
+	
+	ok = 0;
+	i=0;
+	
+	while(i < 20){
+		if(p2[i] != 0){
+			ok = 1;
+			break;	
+		}			
+		i++;
+	}
+	
+	if(!ok){
+		printf("\nPolinômio 2 está nulo!");
+		return 0;
+	}					
+	
+	ok  = 0;
+	i=0;
+	
+	while(i < 20){
+		if(p3[i] != 0){
+			ok = 1;
+			break;	
+		}			
+		i++;
+	}				
+	
+	if(!ok){
+		printf("\nPolinômio 3 está nulo!");
+		return 0;
+	}		
+	
+	return 1;
+}
