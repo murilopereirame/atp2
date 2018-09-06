@@ -190,11 +190,11 @@ void pMIntegrate(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(pr[i] != 0)	
 					if(pr[i] > 0)					
-						printf(" + %.2fX^%d", pr[i], i);
+						printf("%.2fX^%d + ", pr[i], i);
 					else
-						printf(" + (%.2fX^%d)", pr[i], i);
+						printf("(%.2fX^%d) + ", pr[i], i);
 			}
-			printf(" + C");
+			printf(" C");
 			break;
 		case 2:
 			for(; i >=0; i--){
@@ -206,9 +206,9 @@ void pMIntegrate(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(pr[i] != 0)	
 					if(pr[i] > 0)					
-						printf(" + %.2fX^%d", pr[i], i);
+						printf("%.2fX^%d + ", pr[i], i);
 					else
-						printf(" + (%.2fX^%d)", pr[i], i);
+						printf("(%.2fX^%d) + ", pr[i], i);
 			}
 			printf(" + C");
 			break;
@@ -222,9 +222,9 @@ void pMIntegrate(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(pr[i] != 0)	
 					if(pr[i] > 0)					
-						printf(" + %.2fX^%d", pr[i], i);
+						printf("%.2fX^%d + ", pr[i], i);
 					else
-						printf(" + (%.2fX^%d)", pr[i], i);
+						printf("(%.2fX^%d) + ", pr[i], i);
 			}
 			printf(" + C");
 			break;
@@ -242,9 +242,9 @@ void pMIntegrate(float *p1, float *p2, float *p3, float *p4){
 				for(; i >= 0; i--){				
 					if(pr[i] != 0)	
 						if(pr[i] > 0)					
-							printf(" + %.2fX^%d", pr[i], i);
+							printf("%.2fX^%d + ", pr[i], i);
 						else
-							printf(" + (%.2fX^%d)", pr[i], i);
+							printf("(%.2fX^%d) + ", pr[i], i);
 				}
 				printf(" + C");				
 			}			
@@ -292,10 +292,11 @@ void pMDerive(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(pr1[i] != 0)	
 					if(pr1[i] > 0)					
-						printf(" + %.2fX^%d", pr1[i], i);
+						printf("%.2fX^%d + ", pr1[i], i);
 					else
-						printf(" + (%.2fX^%d)", pr1[i], i);
+						printf("(%.2fX^%d) + ", pr1[i], i);
 			}
+			printf("0");
 			printf("\nDeseja armazenar o novo polinômio? (1.Sim / 2.Não)\n");
 			printf("Opção: ");
 			scanf("%d", &yn);
@@ -311,10 +312,11 @@ void pMDerive(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(pr1[i] != 0)	
 					if(pr1[i] > 0)					
-						printf(" + %.2fX^%d", pr1[i], i);
+						printf("%.2fX^%d + ", pr1[i], i);
 					else
-						printf(" + (%.2fX^%d)", pr1[i], i);
+						printf("(%.2fX^%d) + ", pr1[i], i);
 			}
+			printf("0");
 			printf("\nDeseja armazenar o novo polinômio? (1.Sim / 2.Não)\n");
 			printf("Opção: ");
 			scanf("%d", &yn);
@@ -330,10 +332,11 @@ void pMDerive(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(pr1[i] != 0)	
 					if(pr1[i] > 0)					
-						printf(" + %.2fX^%d", pr1[i], i);
+						printf("%.2fX^%d + ", pr1[i], i);
 					else
-						printf(" + (%.2fX^%d)", pr1[i], i);
+						printf("(%.2fX^%d) + ", pr1[i], i);
 			}
+			printf("0");
 			printf("\nDeseja armazenar o novo polinômio? (1.Sim / 2.Não)\n");
 			printf("Opção: ");
 			scanf("%d", &yn);
@@ -349,10 +352,11 @@ void pMDerive(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(pr1[i] != 0)	
 					if(pr1[i] > 0)					
-						printf(" + %.2fX^%d", pr1[i], i);
+						printf("%.2fX^%d + ", pr1[i], i);
 					else
-						printf(" + (%.2fX^%d)", pr1[i], i);
+						printf("(%.2fX^%d) + ", pr1[i], i);
 			}
+			printf("0");
 			printf("\nDeseja armazenar o novo polinômio? (1.Sim / 2.Não)\n");
 			printf("Opção: ");
 			scanf("%d", &yn);
@@ -398,10 +402,11 @@ void pMPrint(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(p1[i] != 0)	
 					if(p1[i] > 0)					
-						printf(" + %.2fX^%d", p1[i], i);
+						printf("%.2fX^%d + ", p1[i], i);
 					else
-						printf(" + (%.2fX^%d)", p1[i], i);
+						printf("(%.2fX^%d) + ", p1[i], i);
 			}
+			printf("0");
 			break;
 		case 2:
 			i = 19;
@@ -409,10 +414,11 @@ void pMPrint(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(p2[i] != 0)	
 					if(p2[i] > 0)					
-						printf(" + %.2fX^%d", p2[i], i);
+						printf("%.2fX^%d + ", p2[i], i);
 					else
-						printf(" + (%.2fX^%d)", p2[i], i);
+						printf("(%.2fX^%d) + ", p2[i], i);
 			}
+			printf("0");
 			break;
 		case 3:
 			i = 19;
@@ -420,10 +426,11 @@ void pMPrint(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(p3[i] != 0)	
 					if(p3[i] > 0)					
-						printf(" + %.2fX^%d", p3[i], i);
+						printf("%.2fX^%d + ", p3[i], i);
 					else
-						printf(" + (%.2fX^%d)", p3[i], i);
+						printf("(%.2fX^%d) + ", p3[i], i);
 			}
+			printf("0");
 			break;
 		case 4:
 			i = 39;
@@ -431,10 +438,11 @@ void pMPrint(float *p1, float *p2, float *p3, float *p4){
 			for(; i >= 0; i--){				
 				if(p4[i] != 0)	
 					if(p4[i] > 0)					
-						printf(" + %.2fX^%d", p4[i], i);
+						printf("%.2fX^%d + ", p4[i], i);
 					else
-						printf(" + (%.2fX^%d)", p4[i], i);
+						printf("(%.2fX^%d) + ", p4[i], i);
 			}
+			printf("0");
 			break;
 		case 0:
 			return 0;
@@ -521,6 +529,8 @@ void pMDetG(float *p1, float *p2, float *p3, float *p4){
 //Resolver polinômio para X arbitrario
 void pMSolve(float *p1, float *p2, float *p3, float *p4){
 	int i = 0, opt = 0;
+	int r = 0;
+	short ok = 0;
 	float resultado = 0, x = 0;	
 	char ch;
 	printf("Insira X pertencente aos Reais:");
@@ -531,7 +541,7 @@ void pMSolve(float *p1, float *p2, float *p3, float *p4){
 	printf("2. Polinômio 2 g(x)\n");
 	printf("3. Polinômio 3 h(x)\n");
 	printf("4. Polinômio resultante r(x)\n");
-	printf("0. Voltar\n")
+	printf("0. Voltar\n");
 	printf("Opção: ");
 	scanf("%d", &opt);
 	printf("\n");
@@ -544,6 +554,7 @@ void pMSolve(float *p1, float *p2, float *p3, float *p4){
 				if(p1[i] != 0)
 				printf("%.2f*(%.2f)^%d + ", p1[i], x, i);
 			}
+			printf("0");
 			printf(" é: %.2f", resultado);
 			break;	
 		case 2:
@@ -553,8 +564,9 @@ void pMSolve(float *p1, float *p2, float *p3, float *p4){
 				if(p2[i] != 0)
 					printf("%.2f*(%.2f)^%d + ", p2[i], x, i);
 			}
+			printf("0");
 			printf(" é: %.2f", resultado);
-			break	
+			break;
 		case 3:
 			printf("O resultado do polinômio ");	
 			for(; i < 20; i++){
@@ -562,11 +574,10 @@ void pMSolve(float *p1, float *p2, float *p3, float *p4){
 				if(p3[i] != 0)
 					printf("%.2f*(%.2f)^%d + ", p3[i], x, i);
 			}	
+			printf("0");
 			printf(" é: %.2f", resultado);
 			break;		
-		case 4:
-			int r = 0;
-			short ok = 0;
+		case 4:			
 			while(r < 40){
 				if(p4[r] != 0){
 					ok =1;
@@ -581,6 +592,7 @@ void pMSolve(float *p1, float *p2, float *p3, float *p4){
 					if(p4[i] != 0)
 						printf("%.2f*(%.2f)^%d + ", p4[i], x, i);
 				}
+				printf("0");
 				printf(" é: %.2f", resultado);
 			}					
 			else
@@ -745,11 +757,13 @@ void pMSoma(float *p1, float *p2, float *p3, float *p4){
 		printf("\n");
 		printf("Polinômio resultante: ");
 		for(; i >= 0; i--){
-			if(pr[i] != 0 && i == 39)
-				printf("%.2fX^%d", pr[i], i);
-			else if(pr[i] != 0)						
-				printf(" + %.2fX^%d", pr[i], i);
-		}	
+			if(pr[i] !=0)
+				if(pr[i] > 0)
+					printf("%.2fX^%d + ", pr[i], i);
+				else
+					printf("(%.2fX^%d) + ", pr[i], i);
+		}
+		printf("0");	
 	}				
 
 }
@@ -806,10 +820,11 @@ void pMMulti(float *p1, float *p2, float *p3, float *p4, float conK){
 			printf("%.2fX^%d", pr[i], i);
 		else if(pr[i] != 0)	
 			if(pr[i] > 0)					
-				printf(" + %.2fX^%d", pr[i], i);
+				printf("%.2fX^%d + ", pr[i], i);
 			else
-				printf(" + (%.2fX^%d)", pr[i], i);
+				printf("(%.2fX^%d) + ", pr[i], i);
 	}
+	printf("0");
 	
 	printf("\n");
 	system("pause");
@@ -929,15 +944,13 @@ void pMSub(float *p1, float *p2, float *p3, float *p4){
 		else{
 			printf("\n");
 			printf("Polinômio resultante: ");
-			for(; i >= 0; i--){
-				if(pr[i] != 0 && i == 39)
-					printf("%.2fX^%d", pr[i], i);
-				else if(pr[i] != 0)	
+			for(; i >= 0; i--){								
 					if(pr[i] > 0)					
-						printf(" + %.2fX^%d", pr[i], i);
+						printf("%.2fX^%d + ", pr[i], i);
 					else
-						printf(" + (%.2fX^%d)", pr[i], i);
-			}	
+						printf("(%.2fX^%d) + ", pr[i], i);
+			}
+			printf("0");	
 		}	
 	}					
 }
