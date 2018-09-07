@@ -13,6 +13,8 @@ void pMSolve(float *p1, float *p2, float *p3, float *p4);
 void pMPrint(float *p1, float *p2, float *p3, float *p4);
 void pMDerive(float *p1, float *p2, float *p3, float *p4);
 void pMIntegrate(float *p1, float *p2, float *p3, float *p4);
+void ppMMulti(float *p1, float *p2, float *p3, float *p4);
+short pMExc(float *p, float *p2, int l1, int l2);
 
 void main(){
     float coefs1[20] = {0}, coefs2[20] = {0}, coefs3[20] = {0}, coefsr[40] = {0};    
@@ -101,9 +103,18 @@ void main(){
 			printf("\n");
 			system("pause");
 			break;
+		//MULTIPLICAR DOIS POLINÔMIOS
+		case 10:
+			printf("Multiplicar dois polinômios.\n\n");						
+			if(checkNull(coefs1, coefs2, coefs3)){
+				ppMMulti(coefs1, coefs2, coefs3, coefsr);
+			}							
+			printf("\n");
+			system("pause");
+			break;
 		//OPÇÃO SAIR
 		case 0:
-			printf("\nDesenvolvido por: Murilo Rocha Pereira\nRA: 181250934\nCurso: Ciência da Computação\nSemestre: 2º\n");
+			printf("\nDesenvolvido por: Murilo Rocha Pereira & Marcos Atilio\nRA: 181250934 & 161255671\nCurso: Ciência da Computação\nSemestre: 2º\n");
 			return 0;			
 		//OPÇÃO INVALIDA
 		default:
@@ -115,7 +126,7 @@ void main(){
 
   } while ( continua() );
 
-  printf("\nDesenvolvido por: Murilo Rocha Pereira\nRA: 181250934\nCurso: Ciência da Computação\nSemestre: 2º\n");
+  printf("\nDesenvolvido por: Murilo Rocha Pereira & Marcos Atilio\nRA: 181250934 & 161255671\nCurso: Ciência da Computação\nSemestre: 2º\n");
   system("pause");
   return 0;
 
@@ -154,6 +165,7 @@ int menu(void) {
   printf("7. Resolver polinômios\n"); //OK
   printf("8. Imprimir polinômios\n"); //OK
   printf("9. Determinar grau de polinômios\n"); //OK
+  printf("10. Multiplicar 2 polinômios\n"); //NOT OK
   printf("0. Sair");
 
 
@@ -616,7 +628,7 @@ void pMSolve(float *p1, float *p2, float *p3, float *p4){
 		pMSolve(p1, p2, p3, p4);
 }
 
-//Forma recursiva de inserir polinômios
+//Inserir polinômios
 void pMInsert(float *p1, float *p2, float *p3){
 	int option = -1, i = 0, grau = 0;
 	char ch;
@@ -695,7 +707,7 @@ void pMInsert(float *p1, float *p2, float *p3){
 		pMInsert(p1, p2, p3);
 }
 
-//Forma recursiva de soma
+//Somar polinômios
 void pMSoma(float *p1, float *p2, float *p3, float *p4){
     static float pr[40]= {0};
     char ch;
@@ -764,11 +776,173 @@ void pMSoma(float *p1, float *p2, float *p3, float *p4){
 					printf("(%.2fX^%d) + ", pr[i], i);
 		}
 		printf("0");	
+		//Limpar polinômio resultante
+		for(i=39; i > -1; i--){
+			pr[i] = 0;
+		}
 	}				
 
 }
 
-//Forma recursia multiplicação
+//Multiplicar dois polinômios
+void ppMMulti(float *p1, float *p2, float *p3, float *p4){
+    float pr[40]= {0};
+    static float pa[40] = {0};
+    char ch;
+    int quant = 0, pc1=0, i = 39, j = 0, k = 19;
+    int first = 1;
+	
+	printf("Qual polinômio você deseja multiplicar?\n");
+    printf("1. Polinômio 1 f(x)\n");
+	printf("2. Polinômio 2 g(x)\n");
+    printf("3. Polinômio 3 h(x)\n");
+    printf("4. Polinômio resultante r(x)\n");
+    printf("0. Voltar\n");
+    printf("Opção: ");
+    scanf("%d", &pc1);                
+	
+	while(first){
+		for(i = 19; i > -1; i--){
+			if(pa[i] != 0){
+				first = 0;
+				break;	
+			}		
+		}	
+		if(pa[0] == 0)
+			break;		
+	}	
+	if(first){
+		switch(pc1)  {			
+			case 1:
+				for(; j < 20; j++){
+					pa[j] = pa[j]  + p1[j];					
+				}
+				j = 0;						
+				break;
+			case 2:
+				for(; j < 20; j++){
+					pa[j] = pa[j] + p2[j];
+				}
+				j = 0;
+				break;							
+			case 3:
+				for(; j < 20; j++){
+					pa[j] = pa[j]  + p3[j];
+				}
+				j = 0;
+				break;				
+			case 4:
+				for(; j < 40; j++){
+					pa[j] += p4[j];
+				}
+				j = 0;	
+				break;
+			case 0:
+				return 0;
+		}
+		pMChange(p4, pr, 40);
+		first--;		
+		ppMMulti(p1, p2, p3, p4);
+	}			
+	else{
+		switch(pc1){
+			case 1:
+				if(pMExc(pa, p1, 40, 20))
+				{
+					for(k = 19; k > -1; k--){
+						for(j = 19; j > -1; j--){
+							pr[k + j] =  pr[k + j] + (p1[j] * pa[k]);					
+						}	
+					}							
+				}
+				else{
+					printf("O polinômio excede o limite (40)\n");
+					return 0;
+				}					
+				break;				
+			case 2:
+				if(pMExc(pa, p2, 40, 20))
+				{
+					for(k = 19; k > -1; k--){
+						for(j = 19; j > -1; j--){
+							pr[k + j] =  pr[k + j] + (p2[j] * pa[k]);					
+						}	
+					}							
+				}
+				else{
+					printf("O polinômio excede o limite (40)\n");
+					return 0;
+				}				
+				break;				
+			case 3:
+				if(pMExc(pa, p3, 40, 20))
+				{
+					for(k = 19; k > -1; k--){
+						for(j = 19; j > -1; j--){
+							pr[k + j] =  pr[k + j] + (p3[j] * pa[k]);					
+						}	
+					}							
+				}
+				else{
+					printf("O polinômio excede o limite (40)\n");
+					return 0;
+				}				
+				break;					
+			case 4:
+				if(pMExc(pa, p4, 40, 20))
+				{
+					for(k = 19; k > -1; k--){
+						for(j = 19; j > -1; j--){
+							pr[k + j] =  pr[k + j] + (p4[j] * pa[k]);					
+						}	
+					}							
+				}
+				else{
+					printf("O polinômio excede o limite (40)\n");
+					return 0;
+				}				
+				break;
+			case 0:
+				return 0;
+		}
+		
+		pMChange(p4, pr, 40);
+		
+		printf("\n");
+		system("pause");
+		do{					
+			system("cls");
+			printf("\n\nDeseja multiplicar mais algum polinômio? [S,N] : ");
+			ch = getchar();
+			ch = toupper(ch);
+		}
+		while( (ch != 'S') && (ch != 'N') );	
+			
+		if(ch == 'S')
+			ppMMulti(p1, p2, p3, p4);
+		else{
+			printf("\n");
+			printf("Polinômio resultante: ");
+			for(i = 39; i > -1; i--){				
+				if(pr[i] !=0)
+					if(pr[i] > 0)
+						printf("%.2fX^%d + ", pr[i], i);
+					else
+						if(pr[i] != 0)
+							printf("(%.2fX^%d) + ", pr[i], i);
+			}
+			printf("0");
+			
+			//Limpar polinômio auxiliar	
+			for(i=39; i > -1; i--){
+				pa[i] = 0;
+			}
+		}			
+	}		
+
+}
+
+//Multiplicação de polinômios por K
 void pMMulti(float *p1, float *p2, float *p3, float *p4, float conK){
 	static float pr[40] = {0};
 	char ch;
@@ -825,7 +999,10 @@ void pMMulti(float *p1, float *p2, float *p3, float *p4, float conK){
 				printf("(%.2fX^%d) + ", pr[i], i);
 	}
 	printf("0");
-	
+	//Limpar polinômio resultante
+	for(i=39; i > -1; i--){
+		pr[i] = 0;
+	}
 	printf("\n");
 	system("pause");
 	do{					
@@ -840,7 +1017,7 @@ void pMMulti(float *p1, float *p2, float *p3, float *p4, float conK){
 		pMMulti(p1, p2, p3, p4, conK);	
 }
 
-//Forma recursiva subtração
+//Subtrair polinômios
 void pMSub(float *p1, float *p2, float *p3, float *p4){
     static float pr[40]= {0};
     static short first = 1;
@@ -856,16 +1033,19 @@ void pMSub(float *p1, float *p2, float *p3, float *p4){
     printf("Opção: ");
     scanf("%d", &pc1);                
 	
-	while(i < 40){
-		if(p1[k] == 0){
-			first =1;
-			break;	
-		}			
-		i++;
-	}
-		
+	while(first){
+		for(i = 39; i < 40 && i > -1; i--){
+			if(pr[i] != 0){
+				printf("%d\n", pr[i]);
+				first = 0;
+				break;	
+			}		
+		}	
+		if(pr[0] == 0)
+			break;		
+	}	
 	if(first){
-		switch(pc1)  {
+		switch(pc1)  {			
 			case 1:
 				for(; j < 20; j++){
 					pr[j] += p1[j];					
@@ -897,7 +1077,7 @@ void pMSub(float *p1, float *p2, float *p3, float *p4){
 		first--;		
 		pMSub(p1, p2, p3, p4);
 	}			
-	else{
+	else{		
 		switch(pc1)  {
 			case 1:
 				for(; j < 20; j++){
@@ -930,8 +1110,7 @@ void pMSub(float *p1, float *p2, float *p3, float *p4){
 		
 		printf("\n");
 		system("pause");
-		do{			
-			system("pause");
+		do{						
 			system("cls");
 			printf("\n\nDeseja subtrair mais algum polinômio? [S,N] : ");
 			ch = getchar();
@@ -945,12 +1124,17 @@ void pMSub(float *p1, float *p2, float *p3, float *p4){
 			printf("\n");
 			printf("Polinômio resultante: ");
 			for(; i >= 0; i--){								
-					if(pr[i] > 0)					
+					if(pr[i] > 0)											
 						printf("%.2fX^%d + ", pr[i], i);
 					else
-						printf("(%.2fX^%d) + ", pr[i], i);
+						if(pr[i] != 0)
+							printf("(%.2fX^%d) + ", pr[i], i);
 			}
 			printf("0");	
+			//Limpar polinômio resultante
+			for(i=39; i > -1; i--){
+				pr[i] = 0;
+			}
 		}	
 	}					
 }
@@ -961,6 +1145,24 @@ void pMChange(float *p, float *pr, int lenght){
 	for(; i < lenght; i++){
 		p[i] == pr[i];
 	}
+}
+
+//Checar se polinômio excede limite
+short pMExc(float *p, float *p2, int l1, int l2){
+	int i = 0;
+	int g1 = 0, g2 = 0;
+	
+	for(i=0; i < l1; i++)
+		if(p[i] != 0)
+			g1 = i;
+	for(i=0; i < l2; i++)
+		if(p2[i] != 0)
+			g2 = i;
+	
+	if((g1 + g2) > 40)
+		return 0;
+	else
+		return 1;	
 }
 
 //Checar se polinômio está nulo
