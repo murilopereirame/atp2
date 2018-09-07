@@ -6,6 +6,7 @@ A cópia é livre para a utilização em estudos! Sinta-se a vontade para baixar
 __*TPP01:*__
 - Somar polinômios;
 - Subtrair polinômios;
+- Multiplicar polinômios entre si;
 - Multiplicar polinômio por uma constante K;
 - Integrar polinômio;
 - Derivar polinômio;
