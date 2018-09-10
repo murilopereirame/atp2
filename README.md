@@ -12,4 +12,7 @@ __*TPP01:*__
 - Derivar polinômio;
 - Resolver polinômio para X real;
 - Imprimir polinômio;
-- Determinar o grau de um polinômio;
+- Determinar o grau de um polinômio.
+
+__*TPP02:*__
+- Função QuickSort de ordenação de arrays;
