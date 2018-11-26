@@ -15,7 +15,7 @@ int main()
 void order_file(const char *file){	
 	FILE *ptr_file;	
 	
-	//Abre um arquivo j· existente com permiss„o de leitura e escrita
+	//Abre um arquivo j√° existente com permiss√£o de leitura e escrita
 	ptr_file=fopen(file,"rb+");
 	
 	//Caso o ponteiro seja null, emite um erro
@@ -28,13 +28,13 @@ void order_file(const char *file){
 	int count = 0;
 	int aux = 0;
 	
-	//Conta o n˙mero de linhas do arquivo	
+	//Conta o n√∫mero de linhas do arquivo	
 	while(!feof(ptr_file)){
 		fread(&aux, sizeof(int), 1, ptr_file);		
 		count++;
 	}
 	
-	//Volta para o inÌcio
+	//Volta para o in√≠cio
 	rewind(ptr_file);		
 	
 	int a, b;
@@ -42,16 +42,16 @@ void order_file(const char *file){
 	
 	for(int i = 1; i < count-1; i++){
 		
-		//Inicializa a posiÁ„o (In˙til?)
+		//Inicializa a posi√ß√£o (In√∫til?)
 		pos = 0;		
 		for(int j = 0; j < count - 1 - i; j++){	
-			//Armazena a posiÁ„o atual do arquivo para fazer substituiÁıes em caso de a > b
+			//Armazena a posi√ß√£o atual do arquivo para fazer substitui√ß√µes em caso de a > b
 			pos = ftell(ptr_file);			
 			
-			//Le a linha na posiÁ„o pos e armazena em a;			
+			//Le a linha na posi√ß√£o pos e armazena em a;			
 			fread(&a,sizeof(int),1,ptr_file);		
 			
-			//Le a linha na posiÁ„o pos+1 e armazena em b;
+			//Le a linha na posi√ß√£o pos+1 e armazena em b;
 			fread(&b,sizeof(int),1,ptr_file);			
 			
 						
@@ -62,18 +62,18 @@ void order_file(const char *file){
 				//Escreve B por cima de A
 				fwrite(&b, sizeof(int), 1, ptr_file);
 				
-				//Armazena a posiÁ„o de B antes de escrever A por cima;
+				//Armazena a posi√ß√£o de B antes de escrever A por cima;
 				pos = ftell(ptr_file);
 				
 				//Escreve A no lugar de B;
 				fwrite(&a, sizeof(int), 1, ptr_file);				
 				
-				//Volta uma posiÁ„o para comparar com pos+2
+				//Volta uma posi√ß√£o para comparar com pos+2
 				fseek(ptr_file, pos, SEEK_SET);
 			}
 		}
 		
-		//Volta para o inÌcio do arquivo
+		//Volta para o in√≠cio do arquivo
 		rewind(ptr_file);
 	}	
 	
