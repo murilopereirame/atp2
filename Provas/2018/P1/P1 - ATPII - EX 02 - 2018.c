@@ -17,7 +17,7 @@ void main(){
 	 for(int i = 0; i < 11; i++)
 	 	printf("%d ", Pc[i]);
 	
-	printf("\nQuantidade de elementos na intersecção: %d", qi);
+	printf("\nQuantidade de elementos na intersecÃ§Ã£o: %d", qi);
 	 
 }
 
